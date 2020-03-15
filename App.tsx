@@ -5,7 +5,8 @@ import {
   View,
   TextInput,
   Button,
-  AsyncStorage
+  AsyncStorage,
+  Vibration
 } from 'react-native'
 import { Notion } from '@neurosity/notion'
 
@@ -86,7 +87,6 @@ export default function App() {
     if (!user && notion && email && password) {
       login()
     }
-    console.log('asdfsd')
     async function login() {
       const auth = await notion.login({ email, password }).catch(error => {
         console.log(error)
@@ -98,6 +98,25 @@ export default function App() {
     }
   }, [email, notion, user, setUser])
 
+  useEffect(() => {
+    if (user) {
+      if (focus < 0.2) {
+        Vibration.vibrate(10000)
+      } else {
+        Vibration.cancel()
+      }
+    }
+  }, [focus])
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: focus < 0.2 && user ? 'red' : '#fff',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  })
+
   if (loading) {
     return (
       <View style={styles.container}>
@@ -105,6 +124,7 @@ export default function App() {
       </View>
     )
   }
+
   return (
     <View style={styles.container}>
       {user ? (
@@ -158,12 +178,3 @@ export default function App() {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
