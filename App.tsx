@@ -86,7 +86,7 @@ export default function App() {
     if (!user && notion && email && password) {
       login()
     }
-
+    console.log('asdfsd')
     async function login() {
       const auth = await notion.login({ email, password }).catch(error => {
         console.log(error)
@@ -96,7 +96,7 @@ export default function App() {
         setUser(auth.user)
       }
     }
-  }, [email, password, notion, user, setUser])
+  }, [email, notion, user, setUser])
 
   if (loading) {
     return (
