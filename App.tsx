@@ -17,8 +17,8 @@ export default function App() {
   const [deviceId, setDeviceId] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const [focus, setFocus] = useState(0)
+  const [bgColor, setBgColor] = useState<'#fff' | 'red'>('#fff')
 
   useEffect(() => {
     if (!user || !notion) {
@@ -66,8 +66,6 @@ export default function App() {
     const subscription = notion.onAuthStateChanged().subscribe(user => {
       if (user) {
         setUser(user)
-      } else {
-        // navigate('/')
       }
       setLoading(false)
     })
@@ -101,8 +99,10 @@ export default function App() {
   useEffect(() => {
     if (user) {
       if (focus < 0.2) {
+        setBgColor('red')
         Vibration.vibrate(10000)
       } else {
+        setBgColor('#fff')
         Vibration.cancel()
       }
     }
@@ -111,9 +111,26 @@ export default function App() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: focus < 0.2 && user ? 'red' : '#fff',
+      backgroundColor: bgColor,
       alignItems: 'center',
       justifyContent: 'center'
+    },
+    heading: {
+      fontSize: 24,
+      marginBottom: 16
+    },
+    input: {
+      height: 40,
+      width: '100%',
+      maxWidth: 260,
+      borderColor: 'gray',
+      borderWidth: 1,
+      marginVertical: 8,
+      paddingHorizontal: 4
+    },
+    focusText: {
+      fontSize: 18,
+      marginBottom: 8
     }
   })
 
@@ -129,42 +146,29 @@ export default function App() {
     <View style={styles.container}>
       {user ? (
         <>
-          <Text>Notion Linked!</Text>
-          <Text>{`Focus: ${focus}`}</Text>
+          <Text style={styles.heading}>Notion Linked!</Text>
+          <Text style={styles.focusText}>{`Focus: ${(focus * 100).toFixed(
+            0
+          )}%`}</Text>
           <Button title="Logout" onPress={() => notion.logout()} />
         </>
       ) : (
         <>
-          <Text>Link your Notion</Text>
+          <Text style={styles.heading}>Link your Notion</Text>
           <TextInput
-            style={{
-              height: 40,
-              width: 100,
-              borderColor: 'gray',
-              borderWidth: 1
-            }}
+            style={styles.input}
             onChangeText={text => setDeviceId(text)}
             value={deviceId}
             placeholder="Device ID"
           />
           <TextInput
-            style={{
-              height: 40,
-              width: 100,
-              borderColor: 'gray',
-              borderWidth: 1
-            }}
+            style={styles.input}
             onChangeText={text => setEmail(text)}
             value={email}
             placeholder="Email"
           />
           <TextInput
-            style={{
-              height: 40,
-              width: 100,
-              borderColor: 'gray',
-              borderWidth: 1
-            }}
+            style={styles.input}
             onChangeText={text => setPassword(text)}
             value={password}
             placeholder="Password"
@@ -172,7 +176,11 @@ export default function App() {
             autoCompleteType="password"
             secureTextEntry={true}
           />
-          <Button title="Press me" onPress={() => init()} />
+          <Button
+            title="Submit"
+            onPress={() => init()}
+            accessibilityLabel="Submit"
+          />
         </>
       )}
     </View>
