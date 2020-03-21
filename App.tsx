@@ -94,7 +94,7 @@ export default function App() {
         setUser(auth.user)
       }
     }
-  }, [email, notion, user, setUser])
+  }, [email, notion])
 
   useEffect(() => {
     if (user) {
@@ -107,6 +107,11 @@ export default function App() {
       }
     }
   }, [focus])
+
+  const logout = () => {
+    notion.logout()
+    setUser(null)
+  }
 
   const styles = StyleSheet.create({
     container: {
@@ -150,7 +155,7 @@ export default function App() {
           <Text style={styles.focusText}>{`Focus: ${(focus * 100).toFixed(
             0
           )}%`}</Text>
-          <Button title="Logout" onPress={() => notion.logout()} />
+          <Button title="Logout" onPress={() => logout()} />
         </>
       ) : (
         <>
