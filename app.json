@@ -4,7 +4,7 @@
     "slug": "stay-focused",
     "privacy": "public",
     "sdkVersion": "36.0.0",
-    "platforms": ["android", "web"],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,6 +18,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.jesseweigel.stayfocused",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
