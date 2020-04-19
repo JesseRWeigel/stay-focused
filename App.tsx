@@ -6,7 +6,7 @@ import {
   TextInput,
   Button,
   AsyncStorage,
-  Vibration
+  Vibration,
 } from 'react-native'
 import { Notion } from '@neurosity/notion'
 
@@ -19,13 +19,14 @@ export default function App() {
   const [password, setPassword] = useState('')
   const [focus, setFocus] = useState(0)
   const [bgColor, setBgColor] = useState<'#fff' | 'red'>('#fff')
+  const [intervalId, setIntervalId] = useState(null)
 
   useEffect(() => {
     if (!user || !notion) {
       return
     }
 
-    const subscription = notion.focus().subscribe(focus => {
+    const subscription = notion.focus().subscribe((focus) => {
       setFocus(Number(focus.probability.toFixed(2)))
     })
 
@@ -53,9 +54,21 @@ export default function App() {
   }, [deviceId])
 
   const init = () => {
+    if (deviceId === 'test') {
+      initDemo()
+    }
     AsyncStorage.setItem('deviceId', deviceId)
     const thisNotion = new Notion({ deviceId })
     setNotion(thisNotion)
+  }
+
+  const initDemo = () => {
+    setUser(true)
+    setIntervalId(
+      setInterval(() => {
+        setFocus(Math.random())
+      }, 1000)
+    )
   }
 
   useEffect(() => {
@@ -63,7 +76,7 @@ export default function App() {
       return
     }
 
-    const subscription = notion.onAuthStateChanged().subscribe(user => {
+    const subscription = notion.onAuthStateChanged().subscribe((user) => {
       if (user) {
         setUser(user)
       }
@@ -86,7 +99,7 @@ export default function App() {
       login()
     }
     async function login() {
-      const auth = await notion.login({ email, password }).catch(error => {
+      const auth = await notion.login({ email, password }).catch((error) => {
         console.log(error)
       })
 
@@ -106,11 +119,14 @@ export default function App() {
         Vibration.cancel()
       }
     }
-  }, [focus])
+  }, [focus, user])
 
   const logout = () => {
     notion.logout()
     setUser(null)
+    clearInterval(intervalId)
+    setFocus(0)
+    setBgColor('#fff')
   }
 
   const styles = StyleSheet.create({
@@ -118,11 +134,11 @@ export default function App() {
       flex: 1,
       backgroundColor: bgColor,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
     heading: {
       fontSize: 24,
-      marginBottom: 16
+      marginBottom: 16,
     },
     input: {
       height: 40,
@@ -131,12 +147,12 @@ export default function App() {
       borderColor: 'gray',
       borderWidth: 1,
       marginVertical: 8,
-      paddingHorizontal: 4
+      paddingHorizontal: 4,
     },
     focusText: {
       fontSize: 18,
-      marginBottom: 8
-    }
+      marginBottom: 8,
+    },
   })
 
   if (loading) {
@@ -162,19 +178,19 @@ export default function App() {
           <Text style={styles.heading}>Link your Notion</Text>
           <TextInput
             style={styles.input}
-            onChangeText={text => setDeviceId(text)}
+            onChangeText={(text) => setDeviceId(text)}
             value={deviceId}
             placeholder="Device ID"
           />
           <TextInput
             style={styles.input}
-            onChangeText={text => setEmail(text)}
+            onChangeText={(text) => setEmail(text)}
             value={email}
             placeholder="Email"
           />
           <TextInput
             style={styles.input}
-            onChangeText={text => setPassword(text)}
+            onChangeText={(text) => setPassword(text)}
             value={password}
             placeholder="Password"
             textContentType="password"
