@@ -7,6 +7,7 @@ import {
   Button,
   AsyncStorage,
   Vibration,
+  Platform,
 } from 'react-native'
 import { Notion } from '@neurosity/notion'
 
@@ -20,6 +21,7 @@ export default function App() {
   const [focus, setFocus] = useState(0)
   const [bgColor, setBgColor] = useState<'#fff' | 'red'>('#fff')
   const [intervalId, setIntervalId] = useState(null)
+  const [notifications, setNotifications] = useState(false)
 
   useEffect(() => {
     if (!user || !notion) {
@@ -42,6 +44,9 @@ export default function App() {
         setDeviceId(id)
       }
     })()
+    if (Platform.OS === 'web') {
+      notificationInit()
+    }
   }, [])
 
   useEffect(() => {
@@ -114,12 +119,41 @@ export default function App() {
       if (focus < 0.2) {
         setBgColor('red')
         Vibration.vibrate(10000)
+        if (notifications) {
+          new Notification('Stay focused!')
+        }
       } else {
         setBgColor('#fff')
         Vibration.cancel()
       }
     }
   }, [focus, user])
+
+  const notificationInit = () => {
+    // Let's check if the browser supports notifications
+    if ('Notification' in window) {
+      // Let's check whether notification permissions have already been granted
+      if (Notification.permission === 'granted') {
+        // If it's okay let's create a notification
+        setNotifications(true)
+      }
+
+      // Otherwise, we need to ask the user for permission
+      else if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then(function (permission) {
+          // If the user accepts, let's create a notification
+          if (permission === 'granted') {
+            setNotifications(true)
+          } else {
+            setNotifications(false)
+          }
+        })
+      }
+    }
+
+    // At last, if the user has denied notifications, and you
+    // want to be respectful there is no need to bother them any more.
+  }
 
   const logout = () => {
     notion.logout()
