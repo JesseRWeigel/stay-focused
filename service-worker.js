@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/JesseRWeigel/stay-focused/precache-manifest.8d0f83c72a250976ddf09c03d2d80093.js"
+  "/stay-focused/precache-manifest.d2b2608b6cdd74e78a8a0a4d28dd9bbc.js"
 );
 
 workbox.skipWaiting();
@@ -29,7 +29,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("\\JesseRWeigel\\stay-focused\\index.html", {
+workbox.routing.registerNavigationRoute("\\stay-focused\\index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

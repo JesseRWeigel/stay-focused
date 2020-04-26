@@ -1,21 +1,21 @@
 {
   "files": {
-    "app.js": "/JesseRWeigel/stay-focused/static/js/app.c5b152b9.chunk.js",
-    "app.js.map": "/JesseRWeigel/stay-focused/static/js/app.c5b152b9.chunk.js.map",
-    "runtime~app.js": "/JesseRWeigel/stay-focused/static/js/runtime~app.ffa78005.js",
-    "runtime~app.js.map": "/JesseRWeigel/stay-focused/static/js/runtime~app.ffa78005.js.map",
-    "static/js/2.f8ab87e8.chunk.js": "/JesseRWeigel/stay-focused/static/js/2.f8ab87e8.chunk.js",
-    "static/js/2.f8ab87e8.chunk.js.map": "/JesseRWeigel/stay-focused/static/js/2.f8ab87e8.chunk.js.map",
-    "favicon-16.png": "/JesseRWeigel/stay-focused/favicon-16.png",
-    "favicon-32.png": "/JesseRWeigel/stay-focused/favicon-32.png",
-    "favicon.ico": "/JesseRWeigel/stay-focused/favicon.ico",
-    "index.html": "/JesseRWeigel/stay-focused/index.html",
-    "manifest.json": "/JesseRWeigel/stay-focused/manifest.json",
-    "serve.json": "/JesseRWeigel/stay-focused/serve.json"
+    "app.js": "/stay-focused/static/js/app.f75dbfa4.chunk.js",
+    "app.js.map": "/stay-focused/static/js/app.f75dbfa4.chunk.js.map",
+    "runtime~app.js": "/stay-focused/static/js/runtime~app.52681a2f.js",
+    "runtime~app.js.map": "/stay-focused/static/js/runtime~app.52681a2f.js.map",
+    "static/js/2.f8ab87e8.chunk.js": "/stay-focused/static/js/2.f8ab87e8.chunk.js",
+    "static/js/2.f8ab87e8.chunk.js.map": "/stay-focused/static/js/2.f8ab87e8.chunk.js.map",
+    "favicon-16.png": "/stay-focused/favicon-16.png",
+    "favicon-32.png": "/stay-focused/favicon-32.png",
+    "favicon.ico": "/stay-focused/favicon.ico",
+    "index.html": "/stay-focused/index.html",
+    "manifest.json": "/stay-focused/manifest.json",
+    "serve.json": "/stay-focused/serve.json"
   },
   "entrypoints": [
-    "static/js/runtime~app.ffa78005.js",
+    "static/js/runtime~app.52681a2f.js",
     "static/js/2.f8ab87e8.chunk.js",
-    "static/js/app.c5b152b9.chunk.js"
+    "static/js/app.f75dbfa4.chunk.js"
   ]
 }
