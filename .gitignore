@@ -1,14 +1,14 @@
-node_modules/**/*
-.expo/*
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
-web-report/
+node_modules/
+dist/
+.expo/
+*.local
 
 # macOS
 .DS_Store
+
+# Editor
+*.swp
+*.swo
+.vscode/
+.idea/
+tsconfig.tsbuildinfo
